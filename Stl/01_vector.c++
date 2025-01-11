@@ -12,79 +12,88 @@ the Capacity of victor is number of elements that it currently hold and the capa
 #include<iostream>
 #include<vector>
 using namespace std;
+
 int main()
 {
 
-// -------------------------------------------------- Different techniques of initialize vector -----------------------------------------------------
+// ----------------------------------------------- Different techniques to initialize a vector -----------------------------------------------
 
-vector <int> vec; // now size of vec is == 0
-vec.push_back(1);
-vec.push_back(2); 
-vec.push_back(3);
-vec.push_back(4);
-vec.push_back(5);
-vec.emplace_back(9); //add data into the last same as push_back but it faster
-vec.pop_back(); // delete the last data
+vector <int> vec; // Initialize an empty vector of integers. Currently, size = 0.
+vec.push_back(1); // Adds 1 to the end of the vector.
+vec.push_back(2); // Adds 2 to the end of the vector.
+vec.push_back(3); // Adds 3 to the end of the vector.
+vec.push_back(4); // Adds 4 to the end of the vector.
+vec.push_back(5); // Adds 5 to the end of the vector.
+vec.emplace_back(9); // Similar to push_back but faster as it directly constructs the value at the end.
+vec.pop_back(); // Removes the last element (9 in this case).
 
-
-
-for(int value : vec)
+for(int value : vec) // Enhanced for loop to iterate over the vector.
 {
-    cout<<"Value of vec: "<<value <<" ";
+    cout << "Value of vec: " << value << " "; // Output the elements of vec: 1 2 3 4 5
 }
-cout<<endl;
+cout << endl;
 
-//vector<int>vec={1,2} //syntax
-vector<int> v={1,2,3,4,5,6,7};
+// Initialize a vector using a list of values
+vector<int> v = {1, 2, 3, 4, 5, 6, 7}; 
 for(int val : v)
 {
-    cout<<val;
+    cout << val; // Output: 1234567
 }
-cout<<endl;
+cout << endl;
 
-//vector<int>vec(3,10) where 3 is the size of the vector and 10 is the value
-vector<int> va(3,2);
+// Initialize a vector with a fixed size and default value
+vector<int> va(3, 2); // Creates a vector of size 3, all values initialized to 2.
 
-for( int noName:va)
+for(int noName : va)
 {
-    cout<<noName;
+    cout << noName; // Output: 222
 }
-cout<<endl;
+cout << endl;
 
-// if we have to initialize vec2 by vec1 then use vector<int>vec2(vec1)
-vector<int>vec1 ={1,2,4,5,6,7};
-vector<int> vec2(vec1);
+// Initialize a vector by copying another vector
+vector<int> vec1 = {1, 2, 4, 5, 6, 7}; 
+vector<int> vec2(vec1); // vec2 is a copy of vec1.
 
-for(int vaaa:vec2){
-    cout<<vaaa;
-}
-cout<<endl;
-
-//---------------------------------------------------------------functions of vector---------------------------------------------------------------
-
-cout<<"size of vector(vec): "<<vec.size()<<endl; // tell the size of vector
-cout<<"capacity of vector(vec): "<<vec.capacity()<<endl; // the the capacity of vector
-
-//.at and vector[index] bot do same thing 
-cout<<" value at some index in vector(vac): "<<vec[2]<<endl; 
-cout<<" value at some index in vector(vac): "<<vec.at(2)<<endl;
-
-//front &  back
-cout << "front(vac) "<<vec.front()<<endl; // show front index of vector
-cout<<"back(vac) "<<vec.back()<<endl; // show back last index of vector
-
-// erase and insert in worst case the work o(n) time complexity
-vector<int> vect={1,2,3,4,6,9};
-
-// vect.erase(vect.begin()); // we use terators in vector to select the index to use erace junctions .begain in dicate "index 0" 
-vect.erase(vect.begin()+2);// now target second index
-
-for(int valu: vect)
+for(int vaaa : vec2)
 {
-    cout<<valu; // 2 erase
+    cout << vaaa; // Output: 124567
 }
-cout<<endl;
+cout << endl;
 
+// ----------------------------------------------- Functions of vector -----------------------------------------------
+
+cout << "Size of vector(vec): " << vec.size() << endl; // Outputs the number of elements in vec: 5.
+cout << "Capacity of vector(vec): " << vec.capacity() << endl; // Outputs the current capacity of vec.
+
+// Access elements using index and .at() method
+cout << "Value at index 2 in vector(vec): " << vec[2] << endl; // Output: 3.
+cout << "Value at index 2 in vector(vec): " << vec.at(2) << endl; // Output: 3.
+
+// Front and back elements
+cout << "Front(vec): " << vec.front() << endl; // Output: 1 (first element).
+cout << "Back(vec): " << vec.back() << endl; // Output: 5 (last element).
+
+// Erase elements
+vector<int> vect = {1, 2, 3, 4, 6, 9};
+vect.erase(vect.begin()); // Removes the first element (index 0).
+vect.erase(vect.begin() + 2); // Removes the element at index 2 (after previous erase, now 4).
+vect.erase(vect.begin() + 1, vect.begin() + 3); // Removes a range (indices 1 to 2 inclusive).
+
+// Insert elements
+vect.insert(vect.begin() + 1, 7); // Inserts 7 at index 1.
+
+// Clear the vector
+vect.clear(); // Removes all elements but keeps the capacity intact.
+
+for(int valu : vect)
+{
+    cout << valu; 
+}
+cout << "Size of vect: " << vect.size() << endl; // Output: 0 (all elements removed).
+cout << "Capacity of vect: " << vect.capacity() << endl; // Output: 6 (capacity remains).
+
+// Check if vector is empty
+cout << "Is vect empty? " << vect.empty() << endl; // Output: 1 (true).
 
 return 0;
 }
