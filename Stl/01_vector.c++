@@ -97,3 +97,4 @@ cout << "Is vect empty? " << vect.empty() << endl; // Output: 1 (true).
 
 return 0;
 }
+
