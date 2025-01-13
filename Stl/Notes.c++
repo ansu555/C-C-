@@ -68,6 +68,38 @@
     - front(): Returns the first element.
     - back(): Returns the last element.
 
+    ---------------------------------------- Pair Notes ----------------------------------------
+
+1. Definition:
+   - A `pair` is a template class from the STL (Standard Template Library) defined in the `<utility>` header.
+   - It stores two values together, which may or may not be of the same type.
+   - Members of a pair: `first` and `second`.
+   
+2. Key Use Cases:
+   - To group two related values logically together. Useful when you want to store a pair of data that belongs together.
+   - Commonly used in containers like `map` and `set`, where you store key-value pairs.
+
+3. Nested Pairs:
+   - A `pair` can store another `pair` as its second value, which allows for more complex relationships or data structures.
+   - Example: `pair<int, pair<int, int>>` allows you to store a pair of integers and another pair.
+
+4. Arrays of Pairs:
+   - You can create arrays of pairs to store multiple pairs of values.
+   - Example: `pair<int, int> arr[] = {make_pair(1, 2), make_pair(4, 6), make_pair(9, 0)}` stores an array of pairs.
+
+5. Accessing Elements:
+   - To access the first and second values, use `.first` and `.second` respectively.
+   - In a nested pair, use `.second.first` and `.second.second` to access the inner pair's values.
+
+6. Example Code:
+   - Creating a pair: `pair<int, int> p = make_pair(1, 3);`
+   - Accessing values: `cout << p.first << " " << p.second;`
+
+OUTPUT:
+   1 3        // Output from the simple pair
+   1 3 4      // Output from the nested pair
+   6          // Accessing the second element of the second pair in the array
+
 ---------------------------------------- List vs Vector ----------------------------------------
 
 - Vector:
