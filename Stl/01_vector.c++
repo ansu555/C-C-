@@ -10,6 +10,7 @@ the Capacity of victor is number of elements that it currently hold and the capa
 */
 
 #include <iostream>
+#include<bits/stdc++.h>
 #include <vector>
 using namespace std;
 
