@@ -2,7 +2,7 @@
 #include <utility>  // for pair
 #include <vector>
 using namespace std;
-
+ 
 int main()
 {
     pair<int, int> p = {1, 3};
