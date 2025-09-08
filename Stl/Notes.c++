@@ -48,7 +48,6 @@
 - Warning with end():
     - Dereferencing end() is undefined behavior as it points to one past the last element.
 
----------------------------------------- List Key Notes ----------------------------------------
 
 - Container Type:
     - A list is a doubly linked list, unlike a vector which is a dynamic array.
@@ -75,8 +74,133 @@
    - It stores two values together, which may or may not be of the same type.
    - Members of a pair: `first` and `second`.
    
-2. Key Use Cases:
-   - To group two related values logically together. Useful when you want to store a pair of data that belongs together.
+pair & vector of pairs
+ - pair<T1,T2> stores two values as .first and .second.
+
+// -------------------------- Revision Cheat-sheet (Quick Points) --------------------------
+
+// Vector basics
+// - `vec.end()` points to one-past-the-last element (NOT the last element). Do not dereference.
+// - Reverse iterators: `vec.rbegin()` -> last element, `vec.rend()` -> one-before-first element.
+// - `vector<int> vec(5);` creates 5 elements initialized to 0.
+// - `vector<int> vec(5, 8);` creates 5 elements each equal to 8.
+// - `vec.insert(vec.begin() + 2, 4);` inserts 4 before position index 2.
+// - `vec.erase(vec.begin() + i);` removes element at index i.
+// - Reallocation invalidates all iterators; `reserve()` prevents reallocations up to capacity.
+
+// Iterator rules (short)
+// - `begin()`..`end()` iterate forward. `rbegin()`..`rend()` iterate reverse.
+// - Never dereference `end()` or `rend()` (undefined behaviour).
+// - Use `for (auto &x : vec)` for simple iteration; use `const auto&` if you don't modify elements.
+
+// Set & find
+// - Use `it = s.find(x); if (it != s.end())` to check membership; `count(x)` returns 0 or 1 for set.
+// - `lower_bound(x)` returns iterator to first element >= x. If x is greater than all elements, it returns `end()`.
+// - `upper_bound(x)` returns first element > x.
+
+// Unordered containers
+// - `unordered_set` / `unordered_map` use hashing and provide average O(1) lookup/insert/erase.
+// - Use unordered containers for speed when ordering is not required. Poor hash functions can degrade performance.
+
+// Map
+// - `map` stores keys in ascending order by default (use custom comparator to change order).
+// - `m[key]` inserts default value if key missing. Use `m.at(key)` to avoid accidental insertion (throws if missing).
+
+// Common idioms
+// - Erase-remove idiom (remove elements from vector):
+//     v.erase(std::remove_if(v.begin(), v.end(), pred), v.end());
+// - Deduplicate vector while preserving one copy per value:
+//     sort(v.begin(), v.end());
+//     v.erase(std::unique(v.begin(), v.end()), v.end());
+// - Frequency map: `unordered_map<T,int> freq; for (auto &x : v) ++freq[x];`
+
+// -------------------------- Flashcards (Quick memory prompts) --------------------------
+
+// Flashcard 1
+// Q: What does `vec.end()` point to?
+// A: One-past-the-last element (cannot be dereferenced).
+
+// Flashcard 2
+// Q: How to create a vector of five zeros? How to create five 8s?
+// A: `vector<int> v(5);` and `vector<int> v(5, 8);` respectively.
+
+// Flashcard 3
+// Q: How do you insert value 4 before index 2 in a vector?
+// A: `v.insert(v.begin() + 2, 4);` (inserts before position 2).
+
+// Flashcard 4
+// Q: How to check if element x exists in a `set<int> s`?
+// A: `if (s.find(x) != s.end()) { /* found */ }` or use `s.count(x)`.
+
+// Flashcard 5
+// Q: What is the difference between `map` and `unordered_map`?
+// A: `map` is ordered and uses balanced tree (O(log n)); `unordered_map` uses hash table (average O(1)).
+
+// Flashcard 6
+// Q: What does `lower_bound` return on a sorted container?
+// A: Iterator to the first element >= given value; returns `end()` if value greater than all elements.
+
+// Flashcard 7
+// Q: When does vector reallocation occur and what is the consequence?
+// A: When size exceeds capacity; reallocation invalidates all iterators and references to elements.
+
+// Flashcard 8
+// Q: How to safely remove elements from a vector based on a predicate?
+// A: Use erase-remove idiom: `v.erase(remove_if(...), v.end());`.
+
+// Flashcard 9
+// Q: How to preserve relative order when sorting partially?
+// A: Use `stable_sort` if you need to preserve relative order of equivalent elements.
+
+// Flashcard 10
+// Q: Does `operator[]` on `map` insert a key if missing?
+// A: Yes — it default-constructs and inserts the mapped type. Use `at()` to avoid insertion.
+
+// -------------------------- Short example snippets --------------------------
+// create vector of five 8s:
+//   vector<int> v(5, 8);
+// insert 4 before index 2:
+//   v.insert(v.begin() + 2, 4);
+// check set membership:
+//   if (s.find(x) != s.end()) cout << "present";
+// using unordered_map for frequency:
+//   unordered_map<int,int> f; for (int x : v) ++f[x];
+
+// -------------------------------- End quick revision --------------------------------
+
+// -------------------------- User Quick Highlights (must-remember) --------------------------
+
+// Vectors
+// - `vec.end()` points to one-past-the-last element (i.e. after the last element). It is NOT the last element.
+// - For reverse iteration use `vec.rbegin()` (last element) and `vec.rend()` (one-before-first element).
+//   Do NOT confuse `vec.end()` with reverse iteration boundaries.
+// - `vector<int> vec(5);` creates a vector with 5 elements all initialized to 0.
+// - `vector<int> vec(5, 8);` creates a vector with 5 elements all initialized to 8.
+// - `vec.insert(vec.begin() + 2, 4);` inserts the value 4 before position index 2 (shifts current element at index 2 to the right).
+
+// Sets
+// - To check membership: `if (s.find(x) != s.end()) { /* x exists */ }`.
+// - `find()` returns an iterator to the element if found; otherwise it returns `s.end()`.
+
+// lower_bound / upper_bound (on sorted ranges / associative containers)
+// - `lower_bound(x)` returns iterator to the first element >= x.
+// - If x is larger than any element in the container, `lower_bound(x)` returns `end()`.
+// - `upper_bound(x)` returns iterator to the first element > x.
+
+// Unordered containers
+// - We use `unordered_set` / `unordered_map` when we want better average-time complexity (average O(1) lookups) and ordering is not required.
+// - Remember: unordered containers have no ordering guarantees and iteration order can change after rehashes.
+
+// Maps
+// - `map` stores keys in ascending order by default (use a custom comparator to change this ordering).
+
+// Short examples
+//  vector<int> v(5);        // -> {0,0,0,0,0}
+//  vector<int> v2(5,8);     // -> {8,8,8,8,8}
+//  v.insert(v.begin()+2,4); // insert 4 before index 2
+//  if (s.find(x) != s.end()) // check membership in set
+
+// -------------------------- End User Quick Highlights --------------------------
    - Commonly used in containers like `map` and `set`, where you store key-value pairs.
 
 3. Nested Pairs:
