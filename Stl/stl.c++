@@ -311,7 +311,108 @@ void explainMultimap(){
     for(auto i:m){
         cout<<i.first<<"-"<<i.second<<endl;
     }   
+    cout<<endl;
+    auto it=m.equal_range(2); // give pair of iterator where first is first occurence of 2 and second is last occurence of 2
+    for(auto i=it.first; i!=it.second;i++){
+        cout<<i->first<<"-"<<i->second<<endl;
+    }
 }
+//sort
+void explaiSort(){
+    int arr[5]={5,2,8,1,3};
+    sort(arr,arr+5);
+    for(auto i=0;i<5;i++){
+        cout<<arr[i]<<" ";
+    } //nlogn
+}
+//Accumulate
+void explainAccumulate(){
+    int arr[5]={1,2,3,4,5};
+    int sum=accumulate(arr,arr+5,0); //0 is initial value
+    cout<<"Sum: "<<sum<<endl;
+    int prod=accumulate(arr,arr+5,1,multiplies<int>());
+    cout<<"Product: "<<prod<<endl;
+}
+//Count
+void explainCount(){
+    int arr[8] ={1,2,3,4,5,1,2,1};
+    int cnt=count(arr,arr+8,1);
+    cout<<"Count of 1: "<<cnt<<endl;
+} 
+//find
+void explainFind(){
+    int arr[5]={1,2,3,4,5};
+    auto it=find(arr,arr+5,3);
+    cout<<"Element found: "<<*it<<endl;
+}
+//next permutation
+void explainNextPermutation(){
+    string s="123";
+   do{
+    cout<<s<<endl;
+   }while(next_permutation(s.begin(),s.end()));
+}
+//prev permutation
+void explainPrevPermutation(){
+    string s="321";
+   do{
+    cout<<s<<endl;
+   }while(prev_permutation(s.begin(),s.end()));
+}
+//max element
+void explainMaxElement(){
+    int arr[5]={1,2,3,4,5};
+    cout<<"Max element: "<<*max_element(arr,arr+5)<<endl;
+}
+//min element
+void explainMinElement(){
+    int arr[5]={1,2,3,4,5};
+    cout<<"Min element: "<<*min_element(arr,arr+5)<<endl;
+}   
+//reverse
+void explainReverse(){
+    int arr[5]={1,2,3,4,5};
+    reverse(arr,arr+5);
+    for(auto i=0;i<5;i++){
+        cout<<arr[i]<<" ";
+    }
+}
+//pow
+void explainPow(){
+    cout<<"2^3: "<<pow(2,3)<<endl;
+    cout<<"4^0.5: "<<pow(4,0.5)<<endl;
+}
+//comparator
+bool internalComparator(int e1, int e2){
+    if(e1<e2) return false;
+    return true;
+}
+bool internalComparatorPair(pair<int,int>p1, pair<int,int>p2){
+    if(p1.second<p2.second) return false;
+    if(p1.second>p2.second) return true;
+    if(p1.first<p2.first) return true;
+    return false;
+}
+//comparator in sort
+void explainComparatorInSort(){
+    // sort ints using an int comparator
+    // int arr[5] = {5,2,8,1,3};
+    // sort(arr, arr+5, internalComparator); // uses comparator for ints
+    // cout << "Sorted ints: ";
+    // for (auto i = 0; i < 5; i++) cout << arr[i] << " ";
+    // cout << endl;
+
+    // sort a vector of pairs using the pair comparator
+   pair<int,int>arr[5] = {{5,1}, {2,3}, {8,2}, {1,4}, {3,0}};
+    sort(arr,arr+5,internalComparatorPair);
+    cout << "Sorted pairs (by second desc, then first asc): ";
+    for(auto i =0;i<5;i++) {
+cout << "{" << arr[i].first << "," << arr[i].second << "} ";
+    }
+    
+}
+
+
 int main()
 {
     // explainVector();
@@ -324,6 +425,17 @@ int main()
     //explainMultiset();
     //explainUnorderedSet();
     //explainMap();
-    explainMultimap();
+    //explainMultimap();
+    //explaiSort();
+    //explainAccumulate();
+    //explainCount();
+    //explainFind();
+    //explainNextPermutation();
+    //explainPrevPermutation();
+    //explainMaxElement();
+    //explainMinElement();
+    //explainReverse();
+    //explainPow();
+    explainComparatorInSort();
     return 0;
 }
