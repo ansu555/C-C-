@@ -18,7 +18,7 @@
     - emplace_back(value): Similar to push_back, but more efficient as it constructs the element in-place.
     - pop_back(): Removes the last element.
     - size(): Returns the current number of elements.
-    - capacity(): Returns the allocated memory size.
+    - capacity(): Returns the allocated memory size. 
     - clear(): Removes all elements from the vector.
     - front(): Returns the first element.
     - back(): Returns the last element.
@@ -379,3 +379,76 @@ OUTPUT:
     - Transform + copy_if for filtered mapped output.
 
 ---------------------------------------- End STL Algorithms Key Notes ----------------------------------------
+
+STL QUICK NOTES (based on test.c++ examples)
+
+General
+- Include headers specifically (<vector>, <list>, <set>, <unordered_set>, <stack>, <queue>, <priority_queue>, <map>, <algorithm>, <numeric>...) rather than bits/stdc++.h in portable code.
+- Algorithms operate on iterator ranges [first, last).
+- Never dereference end() (undefined behaviour): do not use *v.end().
+
+Vector
+- Dynamic array: contiguous storage, random access O(1).
+- push_back amortized O(1). insert/erase in middle O(n).
+- Use v.front(), v.back() for first/last element.
+- begin(), end() give forward iterators; rbegin(), rend() give reverse iterators.
+- Do not dereference end() and beware of invalidation: reallocation invalidates all iterators.
+- Common idiom: iterate with for(auto &x : v) or for(auto it = v.begin(); it != v.end(); ++it).
+- To erase by index: v.erase(v.begin() + idx). To insert at index: v.insert(v.begin() + idx, value).
+
+Pair & vector of pairs
+- pair<T1,T2> stores two values as .first and .second.
+- Useful in vectors for key-value-like data or sorting by pair.
+
+List
+- Doubly linked list: O(1) insert/erase given iterator, no random access.
+- Use when many insert/erase in middle and you have iterators.
+
+Stack / Queue / Priority Queue
+- Adapters: stack<T> (LIFO), queue<T> (FIFO), priority_queue<T> (heap-based).
+- priority_queue<T> default is max-heap. For min-heap use:
+  priority_queue<T, vector<T>, greater<T>> minHeap;
+- Use .top(), .push(), .pop(), .empty().
+
+Set / Multiset
+- set<T>: ordered unique keys (balanced tree), O(log n) insert/find/erase.
+- multiset<T>: allows duplicates; count(key) > 1 possible.
+- Iteration in sorted order. lower_bound / upper_bound available.
+- Erasing by key on multiset may remove all equivalent elements (use iterator erase to remove one).
+
+Unordered_set
+- Hash-based, average O(1) find/insert/erase. No ordering of elements.
+- Iteration order unspecified and may change on rehash.
+- Good for frequency tracking and fast membership tests.
+
+Map / Unordered_map (short)
+- map<Key,T>: ordered, unique keys, operations O(log n).
+- unordered_map<Key,T>: hash-based, average O(1).
+- operator[] inserts default value if key absent; use at() to avoid insertion.
+- For multiple values per key use multimap or map<Key, vector<T>>.
+
+Iterators & Common Pitfalls
+- Do not compare reverse iterators with < or use arithmetic unless category supports it; use != or ++/--.
+- Dereferencing end() or past-the-end iterators is UB.
+- After erase on associative containers, only iterators to erased elements are invalidated; others remain valid.
+- For vector erase-remove idiom:
+    v.erase(std::remove_if(v.begin(), v.end(), pred), v.end());
+- To deduplicate a vector:
+    sort(v.begin(), v.end());
+    v.erase(std::unique(v.begin(), v.end()), v.end());
+
+Best Practices & Debugging
+- Prefer range-based for and algorithms for clarity.
+- Use meaningful headers, avoid bits/stdc++.h in production.
+- Use is_sorted, min_element/max_element, and size/logging to debug container state.
+- Check comparator/hash correctness if ordered/unordered containers behave unexpectedly.
+
+Notes about the provided test.c++ code (issues to fix)
+- cout << *endItr << endl; // UB: endItr == v.end(), cannot dereference.
+- Iterating reverse iterator with `for(auto itr = v.rbegin(); itr < v.rend(); itr++)` is fragile; use
+    for (auto itr = v.rbegin(); itr != v.rend(); ++itr)
+- When printing find() failure, don't dereference the returned end() iterator.
+- Use const & in range-for when not modifying elements: for (const auto &x : v)
+
+----------------------------------------
+End of Notes
