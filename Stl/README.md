@@ -3,26 +3,31 @@
 A clean, structured, and complete reference converted from `Notes.c++`. This file contains concise explanations, examples, and flashcards to help you revise the C++ Standard Template Library (STL) quickly.
 
 ## Table of contents
+
 - Sequential data
-  - Vector
-  - Iterator notes for Vector
-  - List
-  - Pair
-  - List vs Vector
-  - Deque
-  - Key differences between List and Deque
+    - [Vector Key Notes](#vector-key-notes)
+    - [Iterator Notes for Vector](#iterator-notes-for-vector)
+    - [List Key Notes](#list-key-notes)
+    - [Pair Notes](#pair-notes)
+    - [List vs Vector](#list-vs-vector)
+    - [Deque (Double-Ended Queue)](#deque-double-ended-queue)
+    - [Key Differences between List and Deque](#key-differences-between-list-and-deque)
+
 - Associative containers
-  - Map
-  - Multimap
-  - Unordered_map
-  - Set
-  - Multiset
-  - Unordered_set
+    - [Map Key Notes](#map-key-notes)
+    - [Multimap Key Notes](#multimap-key-notes)
+    - [Unordered_map Key Notes](#unordered_map-key-notes)
+    - [Set Key Notes](#set-key-notes)
+    - [Multiset Key Notes](#multiset-key-notes)
+    - [Unordered_set](#unordered_set)
+
 - Algorithms and utilities
-  - STL Algorithms Key Notes
-  - Useful patterns
+    - [STL Algorithms Key Notes](#stl-algorithms-key-notes)
+    - [Useful patterns](#useful-patterns)
+
 - Quick revision & flashcards
-  - User Quick Highlights
+    - [Flashcards & Quick revision (compact)](#flashcards--quick-revision-compact)
+    - [User Quick Highlights (must-remember)](#user-quick-highlights-must-remember)
 
 ---
 
